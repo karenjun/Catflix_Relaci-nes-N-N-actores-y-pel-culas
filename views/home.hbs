@@ -1,0 +1,81 @@
+<main class="catalog-page">
+    <section class="catalog-intro" aria-labelledby="catalog-title">
+        <p class="eyebrow">Catflix Originals</p>
+        <h2 id="catalog-title">Explora el catálogo</h2>
+        <p>Elege una historia y descubre todos sus detalles.</p>
+    </section>
+
+    <!-- Sort bar -->
+    <div class="sort-bar" id="sortBar" style="display:none;">
+    <label for="sortBy">Ordenar por</label>
+    <select id="sortBy">
+        <option value="nombre">Nombre</option>
+        <option value="año">Año</option>
+        <option value="director" id="sortDirector" style="display:none;">Director</option>
+        <option value="temporadas" id="sortTemporadas" style="display:none;">Temporadas</option>
+    </select>
+    <button class="btn-order" id="btnToggleOrder" onclick="toggleOrder()">Ascendente</button>
+    </div>
+
+    <div class="container catalog-container">
+    <div class="items-grid" id="itemsGrid">
+        <div class="empty-msg">
+            Cargando catálogo...
+        </div>
+    </div>
+</div>
+
+<section class="container form-section" aria-labelledby="add-content-title">
+    <div class="form-launcher">
+        <p class="eyebrow">Tu catálogo</p>
+        <h2 id="add-content-title">Agregar nuevo contenido</h2>
+        <p>Elige el tipo de contenido que quieres sumar al catálogo.</p>
+        <div class="form-launcher-actions">
+            <button type="button" class="btn-content-choice" id="btnNuevaPelicula" onclick="mostrarFormulario('pelicula')" aria-controls="panelPelicula" aria-expanded="false">Nueva película</button>
+            <button type="button" class="btn-content-choice" id="btnNuevaSerie" onclick="mostrarFormulario('serie')" aria-controls="panelSerie" aria-expanded="false">Nueva serie</button>
+        </div>
+    </div>
+
+    <div class="forms-grid" id="formsGrid">
+        <div class="form-box" id="panelPelicula" hidden>
+            <h3>Nueva Película</h3>
+            <form id="formPelicula" onsubmit="agregarPelicula(event)">
+                <input type="text" id="movieNombre" placeholder="Nombre" required>
+                <input type="text" id="movieDirector" placeholder="Director" required>
+                <input type="number" id="movieAnio" placeholder="Año" required min="1888" max="2100">
+                <textarea id="movieDesc" placeholder="Descripción (ej: Sinopsis corta de la película, 1-2 líneas)" rows="2"></textarea>
+                <input type="text" id="movieImagen" placeholder="URL imagen (ej: https://ejemplo.com/imagen.jpg)">
+                <input type="text" id="movieLeyenda" placeholder="Leyenda/Eslogan (ej: Frase inspiradora o lema, máx 50 caracteres)">
+                <input type="text" id="movieTrailer" placeholder="URL Trailer YouTube (ej: https://www.youtube.com/watch?v=...)">
+                <input type="text" id="movieEnlace" placeholder="URL Película completa (ej: https://www.youtube.com/watch?v=...)">
+                <button type="submit" class="btn-add-movie">Agregar Película</button>
+            </form>
+            <div id="msgPelicula" class="message"></div>
+        </div>
+
+        <div class="form-box" id="panelSerie" hidden>
+            <h3>Nueva Serie</h3>
+            <form id="formSerie" onsubmit="agregarSerie(event)">
+                <input type="text" id="serieNombre" placeholder="Nombre" required>
+                <input type="number" id="serieAnio" placeholder="Año" required min="1888" max="2100">
+                <input type="number" id="serieTemporadas" placeholder="Temporadas" required min="1">
+                <textarea id="serieDesc" placeholder="Descripción (Sinopsis corta de la serie, 1-2 líneas)" rows="2"></textarea>
+                <input type="text" id="serieImagen" placeholder="URL imagen (https://ejemplo.com/imagen.jpg)">
+                <input type="text" id="serieLeyenda" placeholder="Leyenda/Eslogan (Frase inspiradora o lema, máx 50 caracteres)">
+                <input type="text" id="serieTrailer" placeholder="URL Trailer YouTube (ej: https://www.youtube.com/watch?v=...)">
+                <input type="text" id="serieEnlace" placeholder="URL Serie completa (ej: https://www.youtube.com/watch?v=...)">
+                <button type="submit" class="btn-add-series">Agregar Serie</button>
+            </form>
+            <div id="msgSerie" class="message"></div>
+        </div>
+    </div>
+</section>
+</main>
+
+<section class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden>
+    <div class="detail-modal-backdrop"></div>
+    <div class="detail-modal-panel" id="detailModalPanel">
+        <button type="button" class="btn-back-catalog" onclick="cerrarDetalle()">← Volver al catálogo</button>
+        <div class="detail-modal-content" id="detailModalContent"></div>
+    </div>
+</section>

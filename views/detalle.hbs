@@ -1,0 +1,28 @@
+<div class="detalle-hero" style="background-image: url('{{item.imagenFondo}}');">
+    <div class="detalle-overlay"></div>
+    <div class="detalle-content">
+        <a href="/" class="btn-volver">← Volver al catálogo</a>
+        <div class="detalle-grid">
+            <div class="detalle-poster">
+                <img src="{{item.imagen}}" alt="{{item.nombre}}">
+            </div>
+            <div class="detalle-info">
+                <span class="detalle-tipo">{{tipo}}</span>
+                <h1 class="detalle-titulo">{{item.nombre}}</h1>
+                <div class="detalle-metadata">
+                    {{#if item.director}}
+                        <span class="metadata-item">{{item.director}}</span>
+                    {{/if}}
+                    <span class="metadata-item">{{item.año}}</span>
+                    {{#if item.temporadas}}
+                        <span class="metadata-item">{{item.temporadas}} temporadas</span>
+                    {{/if}}
+                </div>
+                <p class="detalle-descripcion">{{item.descripcion}}</p>
+                {{#if item.leyenda}}
+                    <p class="detalle-leyenda">"{{item.leyenda}}"</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
