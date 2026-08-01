@@ -584,4 +584,8 @@ async function iniciarServidor() {
   }
 }
 
-iniciarServidor();
+if (require.main === module) {
+  iniciarServidor();
+}
+
+module.exports = app;
