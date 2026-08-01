@@ -1,77 +1,85 @@
 <main class="catalog-page">
     <section class="catalog-intro" aria-labelledby="catalog-title">
         <p class="eyebrow">Catflix Originals</p>
-        <h2 id="catalog-title">Explora el catálogo</h2>
-        <p>Elege una historia y descubre todos sus detalles.</p>
+        <h2 id="catalog-title">Películas y Actores</h2>
+        <p>Explora el reparto de cada película o descubre todas las películas de un actor.</p>
+
+        <!-- Barra de búsqueda -->
+        <div class="search-bar">
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar por título o nombre..." aria-label="Buscar películas o actores">
+                <button type="button" class="search-clear" id="searchClear" aria-label="Limpiar búsqueda">✕</button>
+            </div>
+        </div>
     </section>
 
-    <!-- Sort bar -->
-    <div class="sort-bar" id="sortBar" style="display:none;">
-    <label for="sortBy">Ordenar por</label>
-    <select id="sortBy">
-        <option value="nombre">Nombre</option>
-        <option value="año">Año</option>
-        <option value="director" id="sortDirector" style="display:none;">Director</option>
-        <option value="temporadas" id="sortTemporadas" style="display:none;">Temporadas</option>
-    </select>
-    <button class="btn-order" id="btnToggleOrder" onclick="toggleOrder()">Ascendente</button>
-    </div>
-
     <div class="container catalog-container">
-    <div class="items-grid" id="itemsGrid">
-        <div class="empty-msg">
-            Cargando catálogo...
-        </div>
-    </div>
-</div>
-
-<section class="container form-section" aria-labelledby="add-content-title">
-    <div class="form-launcher">
-        <p class="eyebrow">Tu catálogo</p>
-        <h2 id="add-content-title">Agregar nuevo contenido</h2>
-        <p>Elige el tipo de contenido que quieres sumar al catálogo.</p>
-        <div class="form-launcher-actions">
-            <button type="button" class="btn-content-choice" id="btnNuevaPelicula" onclick="mostrarFormulario('pelicula')" aria-controls="panelPelicula" aria-expanded="false">Nueva película</button>
-            <button type="button" class="btn-content-choice" id="btnNuevaSerie" onclick="mostrarFormulario('serie')" aria-controls="panelSerie" aria-expanded="false">Nueva serie</button>
+        <div class="items-grid" id="itemsGrid">
+            <div class="empty-msg">
+                Cargando catálogo...
+            </div>
         </div>
     </div>
 
-    <div class="forms-grid" id="formsGrid">
-        <div class="form-box" id="panelPelicula" hidden>
-            <h3>Nueva Película</h3>
-            <form id="formPelicula" onsubmit="agregarPelicula(event)">
-                <input type="text" id="movieNombre" placeholder="Nombre" required>
-                <input type="text" id="movieDirector" placeholder="Director" required>
-                <input type="number" id="movieAnio" placeholder="Año" required min="1888" max="2100">
-                <textarea id="movieDesc" placeholder="Descripción (ej: Sinopsis corta de la película, 1-2 líneas)" rows="2"></textarea>
-                <input type="text" id="movieImagen" placeholder="URL imagen (ej: https://ejemplo.com/imagen.jpg)">
-                <input type="text" id="movieLeyenda" placeholder="Leyenda/Eslogan (ej: Frase inspiradora o lema, máx 50 caracteres)">
-                <input type="text" id="movieTrailer" placeholder="URL Trailer YouTube (ej: https://www.youtube.com/watch?v=...)">
-                <input type="text" id="movieEnlace" placeholder="URL Película completa (ej: https://www.youtube.com/watch?v=...)">
-                <button type="submit" class="btn-add-movie">Agregar Película</button>
-            </form>
-            <div id="msgPelicula" class="message"></div>
+    <!-- Sección de formularios -->
+    <section class="container form-section" aria-labelledby="add-content-title">
+        <div class="form-launcher">
+            <p class="eyebrow">Tu catálogo</p>
+            <h2 id="add-content-title">Agregar nuevo contenido</h2>
+            <p>Elige qué quieres agregar al catálogo.</p>
+            <div class="form-launcher-actions">
+                <button type="button" class="btn-content-choice" id="btnNuevaPelicula" onclick="mostrarFormulario('pelicula')" aria-controls="panelPelicula" aria-expanded="false">🎬 Nueva película</button>
+                <button type="button" class="btn-content-choice" id="btnNuevoActor" onclick="mostrarFormulario('actor')" aria-controls="panelActor" aria-expanded="false">🎭 Nuevo actor</button>
+                <button type="button" class="btn-content-choice" id="btnAsignar" onclick="mostrarFormulario('asignar')" aria-controls="panelAsignar" aria-expanded="false">🔗 Asignar actor</button>
+            </div>
         </div>
 
-        <div class="form-box" id="panelSerie" hidden>
-            <h3>Nueva Serie</h3>
-            <form id="formSerie" onsubmit="agregarSerie(event)">
-                <input type="text" id="serieNombre" placeholder="Nombre" required>
-                <input type="number" id="serieAnio" placeholder="Año" required min="1888" max="2100">
-                <input type="number" id="serieTemporadas" placeholder="Temporadas" required min="1">
-                <textarea id="serieDesc" placeholder="Descripción (Sinopsis corta de la serie, 1-2 líneas)" rows="2"></textarea>
-                <input type="text" id="serieImagen" placeholder="URL imagen (https://ejemplo.com/imagen.jpg)">
-                <input type="text" id="serieLeyenda" placeholder="Leyenda/Eslogan (Frase inspiradora o lema, máx 50 caracteres)">
-                <input type="text" id="serieTrailer" placeholder="URL Trailer YouTube (ej: https://www.youtube.com/watch?v=...)">
-                <input type="text" id="serieEnlace" placeholder="URL Serie completa (ej: https://www.youtube.com/watch?v=...)">
-                <button type="submit" class="btn-add-series">Agregar Serie</button>
-            </form>
-            <div id="msgSerie" class="message"></div>
+        <div class="forms-grid" id="formsGrid">
+            <!-- Formulario: Nueva Película -->
+            <div class="form-box" id="panelPelicula" hidden>
+                <h3>Nueva Película</h3>
+                <form id="formPelicula" onsubmit="agregarPelicula(event)">
+                    <input type="text" id="movieTitulo" placeholder="Título" required>
+                    <input type="number" id="movieAnio" placeholder="Año" required min="1888" max="2100">
+                    <p class="form-hint">La imagen y el reparto principal se buscarán automáticamente en TMDB.</p>
+                    <button type="submit" class="btn-add-movie">Agregar Película</button>
+                </form>
+                <div id="msgPelicula" class="message"></div>
+            </div>
+
+            <!-- Formulario: Nuevo Actor -->
+            <div class="form-box" id="panelActor" hidden>
+                <h3>Nuevo Actor</h3>
+                <form id="formActor" onsubmit="agregarActor(event)">
+                    <input type="text" id="actorNombre" placeholder="Nombre completo" required>
+                    <input type="date" id="actorFecha" placeholder="Fecha de nacimiento (opcional)">
+                    <input type="text" id="actorImagen" placeholder="URL de la foto (opcional)">
+                    <p class="form-hint">La imagen y la fecha de nacimiento se buscarán automáticamente en TMDB.</p>
+                    <button type="submit" class="btn-add-actor">Agregar Actor</button>
+                </form>
+                <div id="msgActor" class="message"></div>
+            </div>
+
+            <!-- Formulario: Asignar Actor a Película -->
+            <div class="form-box" id="panelAsignar" hidden>
+                <h3>Asignar Actor a Película</h3>
+                <form id="formAsignar" onsubmit="asignarActor(event)">
+                    <select id="asignarPelicula" required>
+                        <option value="">Selecciona una película...</option>
+                    </select>
+                    <select id="asignarActor" required>
+                        <option value="">Selecciona un actor...</option>
+                    </select>
+                    <button type="submit" class="btn-add-series">Asignar Actor</button>
+                </form>
+                <div id="msgAsignar" class="message"></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 </main>
 
+<!-- Modal de detalle -->
 <section class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden>
     <div class="detail-modal-backdrop"></div>
     <div class="detail-modal-panel" id="detailModalPanel">
